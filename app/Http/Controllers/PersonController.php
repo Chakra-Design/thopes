@@ -55,11 +55,11 @@ class PersonController extends Controller
      */
     public function show($id)
     {
-        $new_person = Person::find($id);
-        return view('people.show',compact('new_person'));
+        // $new_person = Person::find($id);
+        return view('people.show',compact(Person::find($id)));
     }
     
-    /**
+    /**return view('people.show',compact('new_person'));
      * Show the form for editing the specified resource.
      *
      * @param  \App\Person  $person
@@ -68,14 +68,14 @@ class PersonController extends Controller
     public function edit($id)
     {
 
-        $new_person = Person::findOrFail($id);
+        $new_person = Person::find($id);
         return view('people.edit' , compact('new_person'));
 
         
 
 
     }
-
+    
     /**
      * Update the specified resource in storage.
      *
@@ -108,4 +108,8 @@ class PersonController extends Controller
         Person::where('id',$id)->delete();
         return redirect('/people');
     }
+    
+
+
+
 }
