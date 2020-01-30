@@ -1,11 +1,10 @@
 @extends('layout')
 @section('content')
-<ul>
-    <li><a href="/people/{{$new_person ->id}}"></a></li>
-    <li><a href="/people/{{$new_person ->name}}"></a></li>
-        
-</ul>
-
-
-
+    <h1>{{$new_person ->name}}</h1>
+    <form method="post" action="/people/{{$new_person->id}}">
+        @csrf
+        @method('DELETE')
+        <button type="submit">Delete</button>
+    </form>
+    <a href="/people/{{$new_person->id}}/edit">Edit</a>
 @endsection

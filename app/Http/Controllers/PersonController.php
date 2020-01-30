@@ -55,8 +55,8 @@ class PersonController extends Controller
      */
     public function show($id)
     {
-        // $new_person = Person::find($id);
-        return view('people.show',compact(Person::find($id)));
+         $new_person = Person::find($id);
+        return view('people.show',compact('new_person'));
     }
     
     /**return view('people.show',compact('new_person'));
@@ -67,13 +67,8 @@ class PersonController extends Controller
      */
     public function edit($id)
     {
-
         $new_person = Person::find($id);
         return view('people.edit' , compact('new_person'));
-
-        
-
-
     }
     
     /**
@@ -83,18 +78,17 @@ class PersonController extends Controller
      * @param  \App\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Person $person)
+    public function update(Request $request, $id)
     {
-        $new_person = Person::find($id);
 
-        $new_person = new Person();
-        $new_person->name = request('name');
-        $new_person->designation = request('designation');
-        $new_person->profile_link = request('profile_link');
-        $new_person->imagepath = request('imagepath');
-        $new_person->save();
+        $currentPerson = Person::find($id);
+        $currentPerson->name = request('name');
+        $currentPerson->designation = request('designation');
+        $currentPerson->profile_link = request('profile_link');
+        $currentPerson->imagepath = request('imagepath');
+        $currentPerson->save();
 
-        return redirect('/people' .$new_person->id);
+        return redirect('/people');
     }
 
     /**
