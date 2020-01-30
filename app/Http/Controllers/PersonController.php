@@ -14,7 +14,8 @@ class PersonController extends Controller
      */
     public function index()
     {
-        return Person::all();
+        $data = Person::all();
+        return view('people.index',compact('data'));
     }
 
     /**
@@ -52,20 +53,27 @@ class PersonController extends Controller
      * @param  \App\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function show(Person $person)
+    public function show($id)
     {
-        //
+        $new_person = Person::find($id);
+        return view('people.show',compact('new_person'));
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function edit(Person $person)
+    public function edit($id)
     {
-        return view('people.edit');
+
+        $new_person = Person::findOrFail($id);
+        return view('people.edit' , compact('new_person'));
+
+        
+
+
     }
 
     /**
@@ -77,7 +85,16 @@ class PersonController extends Controller
      */
     public function update(Request $request, Person $person)
     {
-        //
+        $new_person = Person::find($id);
+
+        $new_person = new Person();
+        $new_person->name = request('name');
+        $new_person->designation = request('designation');
+        $new_person->profile_link = request('profile_link');
+        $new_person->imagepath = request('imagepath');
+        $new_person->save();
+
+        return redirect('/people' .$new_person->id);
     }
 
     /**
@@ -86,8 +103,9 @@ class PersonController extends Controller
      * @param  \App\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Person $person)
+    public function destroy($id)
     {
-        //
+        Person::where('id',$id)->delete();
+        return redirect('/people');
     }
 }

@@ -6,6 +6,9 @@
         <ul>
             <li><a href="/people/create">Create a new person</a></li>
             <li><a href="/people">View all people</a></li>
+            <li><a href="/people/{person}">show a particular person</a><li>
+            
         </ul>
+        
     </div>
-@endsection
+
